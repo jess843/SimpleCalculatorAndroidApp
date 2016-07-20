@@ -5,6 +5,13 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_settings_black_24dp"
         android:title="@string/action_settings"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/previous_calculations"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_action_name"
+        android:title="Previous Calculations"
+        app:showAsAction="always"/>
 </menu>
