@@ -41,13 +41,23 @@
                 android:textSize="@dimen/button_text_size"
                 android:onClick="clearDisplay"/>
 
-            <Button
+            <!--<Button
                 android:id="@+id/square_root_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
                 android:layout_weight="1"
                 android:text="√"
-                android:textSize="@dimen/button_text_size" />
+                android:textSize="@dimen/button_text_size"
+                android:onClick="squareRoot" />-->
+
+            <Button
+                android:id="@+id/positive_negative_button"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:text="+/-"
+                android:textSize="@dimen/button_text_size"
+                android:onClick="negate" />
 
             <Button
                 android:id="@+id/backspace_button"
@@ -64,7 +74,8 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_weight="1"
                 android:text="÷"
-                android:textSize="@dimen/button_text_size"/>
+                android:textSize="@dimen/button_text_size"
+                android:onClick="divide"/>
         </TableRow>
 
         <TableRow android:weightSum="4">
@@ -141,7 +152,8 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_weight="1"
                 android:text="-"
-                android:textSize="@dimen/button_text_size" />
+                android:textSize="@dimen/button_text_size"
+                android:onClick="subtract"/>
         </TableRow>
 
         <TableRow android:weightSum="4">
@@ -179,7 +191,8 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_weight="1"
                 android:text="+"
-                android:textSize="@dimen/button_text_size"/>
+                android:textSize="@dimen/button_text_size"
+                android:onClick="add"/>
 
         </TableRow>
 
@@ -189,7 +202,7 @@
                 android:id="@+id/zero_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="0"
                 android:textSize="@dimen/button_text_size"
                 android:onClick="digitZero" />
@@ -202,15 +215,6 @@
                 android:text="."
                 android:textSize="@dimen/button_text_size"
                 android:onClick="addDecimal" />
-
-            <Button
-                android:id="@+id/positive_negative_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="+/-"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="negate" />
 
             <Button
                 android:id="@+id/equals_button"

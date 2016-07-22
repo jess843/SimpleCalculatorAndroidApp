@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity {
     String previous;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean divide;
     private boolean add;
     private boolean subtract;
+    private boolean showingAnswer = false;
+    private boolean alreadyClear = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         divide = false;
         add = false;
         subtract = false;
+        showingAnswer = false;
+        alreadyClear = false;
     }
 
     @Override
@@ -105,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void digitAdd(String digit) {
+        if ((multiply || divide || add || subtract) && !alreadyClear) {
+            displayTextView.setText("0");
+            alreadyClear = true;
+        }
+        if (showingAnswer) {
+            displayTextView.setText("0");
+        }
+        showingAnswer = false;
+
         if (displayTextView.getText().toString().contains(".")) {
             displayTextView.setText(""+displayTextView.getText().toString()+digit);
         }
@@ -147,9 +161,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void multiply (View v) {
-        if (!divide && !add && !subtract && displayTextView.getText().toString().equals("0")) {
+        if (!divide && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             multiply = true;
+        }
+    }
+
+    public void divide (View v) {
+        if (!multiply && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
+            previous = displayTextView.getText().toString();
+            divide = true;
+        }
+    }
+
+    public void add (View v) {
+        if (!divide && !multiply && !subtract && !displayTextView.getText().toString().equals("0")) {
+            previous = displayTextView.getText().toString();
+            add = true;
+        }
+    }
+
+    public void subtract (View v) {
+        if (!divide && !add && !multiply && !displayTextView.getText().toString().equals("0")) {
+            previous = displayTextView.getText().toString();
+            subtract = true;
         }
     }
 
@@ -159,20 +194,35 @@ public class MainActivity extends AppCompatActivity {
             if (multiply) {
                 result = new BigDecimal(previous);
                 result = result.multiply(new BigDecimal(displayTextView.getText().toString()));
+                multiply = false;
             }
             else if (divide) {
                 result = new BigDecimal(previous);
-                result = result.divide(new BigDecimal(displayTextView.getText().toString()));
+                result = result.divide(new BigDecimal(displayTextView.getText().toString()), 5, RoundingMode.HALF_UP);
+                divide = false;
+                String tooLong = result.toString();
+                while (tooLong.charAt(tooLong.length()-1) == '0' && tooLong.length() > 1) {
+                    tooLong = tooLong.substring(0, tooLong.length()-1);
+                    Log.v("DDDDDDDDDDDDD", tooLong);
+                }
+                result = new BigDecimal(tooLong);
             }
             else if (add) {
                 result = new BigDecimal(previous);
                 result = result.add(new BigDecimal(displayTextView.getText().toString()));
+                add = false;
             }
             else if (subtract) {
                 result = new BigDecimal(previous);
                 result = result.subtract(new BigDecimal(displayTextView.getText().toString()));
+                subtract = false;
             }
             displayTextView.setText(""+result);
         }
+        showingAnswer = true;
+        alreadyClear = false;
+    }
+    public void squareRoot (View v) {
+
     }
 }
