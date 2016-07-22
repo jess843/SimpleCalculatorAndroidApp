@@ -16,7 +16,7 @@
         android:id="@+id/displayTextView"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:text="normal"
+        android:text="xlarge"
         android:textSize="30sp"
         android:background="@color/black"
         android:textColor="@color/white"
