@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         subtract = false;
         showingAnswer = false;
         alreadyClear = false;
+
+        Button mButton = (Button)findViewById(R.id.multiply_button);
+        mButton.setTransformationMethod(null);
     }
 
     @Override
@@ -131,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addDecimal (View v) {
+        if ((multiply || divide || add || subtract) && !alreadyClear) {
+            displayTextView.setText("0");
+            alreadyClear = true;
+        }
         if (!displayTextView.getText().toString().contains(".")) {
             displayTextView.setText(displayTextView.getText().toString() + ".");
         }
