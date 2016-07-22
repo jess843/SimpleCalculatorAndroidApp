@@ -12,218 +12,230 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="jesse843.simplecalculator.MainActivity"
     tools:showIn="@layout/activity_main">
-    <TextView
-        android:id="@+id/displayTextView"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:text="0"
-        android:textSize="30sp"
-        android:background="@color/black"
-        android:textColor="@color/white"
-        android:gravity="right"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp" />
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <TableRow android:weightSum="4">
-
-            <Button
-                android:id="@+id/clear_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="C"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="clearDisplay"/>
-
-            <!--<Button
-                android:id="@+id/square_root_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="√"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="squareRoot" />-->
-
-            <Button
-                android:id="@+id/positive_negative_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="+/-"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="negate" />
-
-            <Button
-                android:id="@+id/backspace_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="@string/backspace"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="backspace"/>
-
-            <Button
-                android:id="@+id/divide_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="÷"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="divide"/>
-        </TableRow>
-
-        <TableRow android:weightSum="4">
-
-            <Button
-                android:id="@+id/seven_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="7"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitSeven"/>
-
-            <Button
-                android:id="@+id/eight_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="8"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitEight" />
-
-            <Button
-                android:id="@+id/nine_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="9"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitNine" />
-
-            <Button
-                android:id="@+id/multiply_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="@string/multiply_sign"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="multiply"/>
-        </TableRow>
-
-        <TableRow android:weightSum="4">
-
-            <Button
-                android:id="@+id/four_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="4"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitFour" />
-
-            <Button
-                android:id="@+id/five_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="5"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitFive" />
-
-            <Button
-                android:id="@+id/six_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="6"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitSix" />
-
-            <Button
-                android:id="@+id/subtract_buton"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="-"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="subtract"/>
-        </TableRow>
-
-        <TableRow android:weightSum="4">
-
-            <Button
-                android:id="@+id/one_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="1"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitOne" />
-
-            <Button
-                android:id="@+id/two_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="2"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitTwo" />
-
-            <Button
-                android:id="@+id/three_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="3"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitThree" />
-
-            <Button
-                android:id="@+id/add_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="+"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="add"/>
-
-        </TableRow>
-
-        <TableRow android:weightSum="4">
-
-            <Button
-                android:id="@+id/zero_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="2"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="3dp"
+            app:cardCornerRadius="3dp">
+            <TextView
+                android:id="@+id/displayTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="right"
                 android:text="0"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="digitZero" />
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </android.support.v7.widget.CardView>
 
-            <Button
-                android:id="@+id/decimal_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="."
-                android:textSize="@dimen/button_text_size"
-                android:onClick="addDecimal" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
-            <Button
-                android:id="@+id/equals_button"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
-                android:text="="
-                android:textSize="@dimen/button_text_size"
-                android:onClick="equals" />
-        </TableRow>
-    </TableLayout>
+            <TableRow android:weightSum="4">
+
+                <Button
+                    android:id="@+id/clear_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="clearDisplay"
+                    android:text="C"
+                    android:textSize="@dimen/button_text_size" />
+
+                <!--<Button
+                    android:id="@+id/square_root_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:text="√"
+                    android:textSize="@dimen/button_text_size"
+                    android:onClick="squareRoot" />-->
+
+                <Button
+                    android:id="@+id/positive_negative_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="negate"
+                    android:text="+/-"
+                    android:textSize="@dimen/button_text_size" />
+
+                <ImageButton
+                    android:id="@+id/backspace_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="backspace"
+                    android:src="@drawable/ic_backspace_black_24dp" />
+
+                <Button
+                    android:id="@+id/divide_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="divide"
+                    android:text="÷"
+                    android:textSize="@dimen/button_text_size" />
+            </TableRow>
+
+            <TableRow android:weightSum="4">
+
+                <Button
+                    android:id="@+id/seven_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitSeven"
+                    android:text="7"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/eight_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitEight"
+                    android:text="8"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/nine_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitNine"
+                    android:text="9"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/multiply_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="multiply"
+                    android:text="@string/multiply_sign"
+                    android:textSize="@dimen/button_text_size" />
+            </TableRow>
+
+            <TableRow android:weightSum="4">
+
+                <Button
+                    android:id="@+id/four_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitFour"
+                    android:text="4"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/five_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitFive"
+                    android:text="5"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/six_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitSix"
+                    android:text="6"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/subtract_buton"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="subtract"
+                    android:text="-"
+                    android:textSize="@dimen/button_text_size" />
+            </TableRow>
+
+            <TableRow android:weightSum="4">
+
+                <Button
+                    android:id="@+id/one_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitOne"
+                    android:text="1"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/two_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitTwo"
+                    android:text="2"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/three_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="digitThree"
+                    android:text="3"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/add_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="add"
+                    android:text="+"
+                    android:textSize="@dimen/button_text_size" />
+
+            </TableRow>
+
+            <TableRow android:weightSum="4">
+
+                <Button
+                    android:id="@+id/zero_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="2"
+                    android:onClick="digitZero"
+                    android:text="0"
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/decimal_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="addDecimal"
+                    android:text="."
+                    android:textSize="@dimen/button_text_size" />
+
+                <Button
+                    android:id="@+id/equals_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:onClick="equals"
+                    android:text="="
+                    android:textSize="@dimen/button_text_size" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 </RelativeLayout>
