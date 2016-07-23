@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView divideTextView;
     private TextView addTextView;
     private TextView subtractTextView;
+    private ScrollView scrollview;
 
 
     @Override
@@ -55,8 +57,16 @@ public class MainActivity extends AppCompatActivity {
         divideTextView = (TextView) findViewById(R.id.divide_button);
         addTextView = (TextView) findViewById(R.id.add_button);
         subtractTextView = (TextView) findViewById(R.id.subtract_button);
+        scrollview = ((ScrollView) findViewById(R.id.scrollView));
 
-        displayTextView.setMovementMethod(new ScrollingMovementMethod());
+        scrollview.post(new Runnable() {
+
+            @Override
+            public void run() {
+                scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
+
     }
 
     @Override
@@ -141,6 +151,13 @@ public class MainActivity extends AppCompatActivity {
             displayNum = displayNum.add(new BigInteger(digit));
             displayTextView.setText("" + displayNum);
         }
+        scrollview.post(new Runnable() {
+
+            @Override
+            public void run() {
+                scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     public void addDecimal(View v) {
@@ -160,6 +177,13 @@ public class MainActivity extends AppCompatActivity {
         if (!displayTextView.getText().toString().contains(".")) {
             displayTextView.setText(displayTextView.getText().toString() + ".");
         }
+        scrollview.post(new Runnable() {
+
+            @Override
+            public void run() {
+                scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     public void clearDisplay(View v) {
@@ -195,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void negate(View v) {
-        if (!showingAnswer) {
+        if (!showingAnswer && alreadyClear) {
             if (!displayTextView.getText().toString().contains(".")) {
                 BigInteger displayNum = new BigInteger(displayTextView.getText().toString());
                 displayNum = displayNum.negate();
@@ -206,37 +230,76 @@ public class MainActivity extends AppCompatActivity {
                 displayTextView.setText("" + displayNum);
             }
         }
+        scrollview.post(new Runnable() {
+
+            @Override
+            public void run() {
+                scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     public void multiply(View v) {
-        if (!divide && !add && !subtract) {
+        if (!multiply && !divide && !add && !subtract) {
             previous = displayTextView.getText().toString();
             multiply = true;
             multiplyTextView.setTextColor(Color.RED);
+            alreadyClear = false;
+        } else if (alreadyClear) {
+            equals(null);
+            previous = displayTextView.getText().toString().substring(1, displayTextView.getText().toString().length());
+            multiply = true;
+            multiplyTextView.setTextColor(Color.RED);
+            displayTextView.setTextColor(Color.WHITE);
+            alreadyClear = false;
         }
     }
 
     public void divide(View v) {
-        if (!multiply && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
+        if (!divide && !multiply && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             divide = true;
             divideTextView.setTextColor(Color.RED);
+            alreadyClear = false;
+        } else if (alreadyClear) {
+            equals(null);
+            previous = displayTextView.getText().toString().substring(1, displayTextView.getText().toString().length());
+            divide = true;
+            divideTextView.setTextColor(Color.RED);
+            displayTextView.setTextColor(Color.WHITE);
+            alreadyClear = false;
         }
     }
 
     public void add(View v) {
-        if (!divide && !multiply && !subtract) {
+        if (!add && !divide && !multiply && !subtract) {
             previous = displayTextView.getText().toString();
             add = true;
             addTextView.setTextColor(Color.RED);
+            alreadyClear = false;
+        } else if (alreadyClear) {
+            equals(null);
+            previous = displayTextView.getText().toString().substring(1, displayTextView.getText().toString().length());
+            add = true;
+            addTextView.setTextColor(Color.RED);
+            displayTextView.setTextColor(Color.WHITE);
+            alreadyClear = false;
         }
     }
 
     public void subtract(View v) {
-        if (!divide && !add && !multiply) {
+        if (!subtract && !divide && !add && !multiply) {
             previous = displayTextView.getText().toString();
             subtract = true;
             subtractTextView.setTextColor(Color.RED);
+            alreadyClear = false;
+        } else if (alreadyClear) {
+            equals(null);
+            previous = displayTextView.getText().toString().substring(1, displayTextView.getText().toString().length());
+            subtract = true;
+            subtractTextView.setTextColor(Color.RED);
+            displayTextView.setTextColor(Color.WHITE);
+            alreadyClear = false;
         }
     }
 
@@ -281,11 +344,13 @@ public class MainActivity extends AppCompatActivity {
             alreadyClear = false;
 
             displayTextView.setTextColor(Color.YELLOW);
+            scrollview.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
         }
-
-    }
-
-    public void squareRoot(View v) {
-
     }
 }
