@@ -1,5 +1,6 @@
 package jesse843.simplecalculator;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.method.ScrollingMovementMethod;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean subtract;
     private boolean showingAnswer = false;
     private boolean alreadyClear = false;
+    private TextView multiplyTextView;
+    private TextView divideTextView;
+    private TextView addTextView;
+    private TextView subtractTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +52,12 @@ public class MainActivity extends AppCompatActivity {
         subtract = false;
         showingAnswer = false;
         alreadyClear = false;
+        multiplyTextView = (TextView) findViewById(R.id.multiply_button);
+        divideTextView = (TextView) findViewById(R.id.divide_button);
+        addTextView = (TextView) findViewById(R.id.add_button);
+        subtractTextView = (TextView) findViewById(R.id.subtract_button);
 
-        Button mButton = (Button)findViewById(R.id.multiply_button);
-        mButton.setTransformationMethod(null);
+        displayTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override
@@ -122,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         }
         showingAnswer = false;
 
+        displayTextView.setTextColor(Color.WHITE);
+
         if (displayTextView.getText().toString().contains(".")) {
             displayTextView.setText(""+displayTextView.getText().toString()+digit);
         }
@@ -152,6 +164,27 @@ public class MainActivity extends AppCompatActivity {
             displayTextView.setText(displayTextView.getText().toString().substring(0, displayTextView.getText().toString().length()-1));
         else
             displayTextView.setText("0");
+
+        if (multiply) {
+            multiplyTextView.setTextColor(Color.BLACK);
+            multiply = false;
+        }
+        else if (divide) {
+            divideTextView.setTextColor(Color.BLACK);
+            divide = false;
+        }
+        else if (add) {
+            addTextView.setTextColor(Color.BLACK);
+            add = false;
+        }
+        else if (subtract) {
+            subtractTextView.setTextColor(Color.BLACK);
+            subtract = false;
+        }
+        
+        showingAnswer = false;
+        displayTextView.setTextColor(Color.WHITE);
+        alreadyClear = false;
     }
 
     public void negate (View v) {
@@ -171,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         if (!divide && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             multiply = true;
+            multiplyTextView.setTextColor(Color.RED);
         }
     }
 
@@ -178,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         if (!multiply && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             divide = true;
+            divideTextView.setTextColor(Color.RED);
         }
     }
 
@@ -185,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         if (!divide && !multiply && !subtract && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             add = true;
+            addTextView.setTextColor(Color.RED);
         }
     }
 
@@ -192,16 +228,21 @@ public class MainActivity extends AppCompatActivity {
         if (!divide && !add && !multiply && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             subtract = true;
+            subtractTextView.setTextColor(Color.RED);
         }
     }
 
     public void equals (View v) {
         if (!displayTextView.getText().toString().equals("0") && (multiply || divide || add || subtract)) {
             BigDecimal result = new BigDecimal("0");
+            if (previous.charAt(0) == '=') {
+                previous = previous.substring(1,previous.length());
+            }
             if (multiply) {
                 result = new BigDecimal(previous);
                 result = result.multiply(new BigDecimal(displayTextView.getText().toString()));
                 multiply = false;
+                multiplyTextView.setTextColor(Color.BLACK);
             }
             else if (divide) {
                 result = new BigDecimal(previous);
@@ -213,21 +254,26 @@ public class MainActivity extends AppCompatActivity {
                     Log.v("DDDDDDDDDDDDD", tooLong);
                 }
                 result = new BigDecimal(tooLong);
+                divideTextView.setTextColor(Color.BLACK);
             }
             else if (add) {
                 result = new BigDecimal(previous);
                 result = result.add(new BigDecimal(displayTextView.getText().toString()));
                 add = false;
+                addTextView.setTextColor(Color.BLACK);
             }
             else if (subtract) {
                 result = new BigDecimal(previous);
                 result = result.subtract(new BigDecimal(displayTextView.getText().toString()));
                 subtract = false;
+                subtractTextView.setTextColor(Color.BLACK);
             }
-            displayTextView.setText(""+result);
+            displayTextView.setText("="+result);
         }
         showingAnswer = true;
         alreadyClear = false;
+
+        displayTextView.setTextColor(Color.YELLOW);
     }
     public void squareRoot (View v) {
 
