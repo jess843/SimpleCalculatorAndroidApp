@@ -10,7 +10,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing variables
         previous = "0";
-        displayTextView  = (TextView)findViewById(R.id.displayTextView);
+        displayTextView = (TextView) findViewById(R.id.displayTextView);
         multiply = false;
         divide = false;
         add = false;
@@ -82,43 +81,43 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void digitOne (View v) {
+    public void digitOne(View v) {
         digitAdd("1");
     }
 
-    public void digitTwo (View v) {
+    public void digitTwo(View v) {
         digitAdd("2");
     }
 
-    public void digitThree (View v) {
+    public void digitThree(View v) {
         digitAdd("3");
     }
 
-    public void digitFour (View v) {
+    public void digitFour(View v) {
         digitAdd("4");
     }
 
-    public void digitFive (View v) {
+    public void digitFive(View v) {
         digitAdd("5");
     }
 
-    public void digitSix (View v) {
+    public void digitSix(View v) {
         digitAdd("6");
     }
 
-    public void digitSeven (View v) {
+    public void digitSeven(View v) {
         digitAdd("7");
     }
 
-    public void digitEight (View v) {
+    public void digitEight(View v) {
         digitAdd("8");
     }
 
-    public void digitNine (View v) {
+    public void digitNine(View v) {
         digitAdd("9");
     }
 
-    public void digitZero (View v) {
+    public void digitZero(View v) {
         digitAdd("0");
     }
 
@@ -135,17 +134,25 @@ public class MainActivity extends AppCompatActivity {
         displayTextView.setTextColor(Color.WHITE);
 
         if (displayTextView.getText().toString().contains(".")) {
-            displayTextView.setText(""+displayTextView.getText().toString()+digit);
-        }
-        else {
+            displayTextView.setText("" + displayTextView.getText().toString() + digit);
+        } else {
             BigInteger displayNum = new BigInteger(displayTextView.getText().toString());
             displayNum = displayNum.multiply(new BigInteger("10"));
             displayNum = displayNum.add(new BigInteger(digit));
-            displayTextView.setText(""+displayNum);
+            displayTextView.setText("" + displayNum);
         }
     }
 
-    public void addDecimal (View v) {
+    public void addDecimal(View v) {
+        if ((multiply || divide || add || subtract) && !alreadyClear) {
+            displayTextView.setText("0");
+            alreadyClear = true;
+        }
+        if (showingAnswer) {
+            displayTextView.setText("0");
+        }
+        showingAnswer = false;
+        displayTextView.setTextColor(Color.WHITE);
         if ((multiply || divide || add || subtract) && !alreadyClear) {
             displayTextView.setText("0");
             alreadyClear = true;
@@ -155,60 +162,61 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void clearDisplay (View v) {
+    public void clearDisplay(View v) {
         displayTextView.setText("0");
-    }
-
-    public void backspace (View v) {
-        if (displayTextView.getText().toString().length() > 1)
-            displayTextView.setText(displayTextView.getText().toString().substring(0, displayTextView.getText().toString().length()-1));
-        else
-            displayTextView.setText("0");
-
         if (multiply) {
             multiplyTextView.setTextColor(Color.BLACK);
             multiply = false;
-        }
-        else if (divide) {
+        } else if (divide) {
             divideTextView.setTextColor(Color.BLACK);
             divide = false;
-        }
-        else if (add) {
+        } else if (add) {
             addTextView.setTextColor(Color.BLACK);
             add = false;
-        }
-        else if (subtract) {
+        } else if (subtract) {
             subtractTextView.setTextColor(Color.BLACK);
             subtract = false;
         }
-        
+
         showingAnswer = false;
         displayTextView.setTextColor(Color.WHITE);
         alreadyClear = false;
+        previous = "0";
     }
 
-    public void negate (View v) {
-        if (!displayTextView.getText().toString().contains(".")) {
-            BigInteger displayNum = new BigInteger(displayTextView.getText().toString());
-            displayNum = displayNum.negate();
-            displayTextView.setText(""+displayNum);
-        }
-        else {
-            BigDecimal displayNum = new BigDecimal(displayTextView.getText().toString());
-            displayNum = displayNum.negate();
-            displayTextView.setText(""+displayNum);
+    public void backspace(View v) {
+        if (!showingAnswer) {
+            if (displayTextView.getText().toString().length() > 1)
+                displayTextView.setText(displayTextView.getText().toString().substring(0, displayTextView.getText().toString().length() - 1));
+            else {
+                displayTextView.setText("0");
+            }
         }
     }
 
-    public void multiply (View v) {
-        if (!divide && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
+    public void negate(View v) {
+        if (!showingAnswer) {
+            if (!displayTextView.getText().toString().contains(".")) {
+                BigInteger displayNum = new BigInteger(displayTextView.getText().toString());
+                displayNum = displayNum.negate();
+                displayTextView.setText("" + displayNum);
+            } else {
+                BigDecimal displayNum = new BigDecimal(displayTextView.getText().toString());
+                displayNum = displayNum.negate();
+                displayTextView.setText("" + displayNum);
+            }
+        }
+    }
+
+    public void multiply(View v) {
+        if (!divide && !add && !subtract) {
             previous = displayTextView.getText().toString();
             multiply = true;
             multiplyTextView.setTextColor(Color.RED);
         }
     }
 
-    public void divide (View v) {
+    public void divide(View v) {
         if (!multiply && !add && !subtract && !displayTextView.getText().toString().equals("0")) {
             previous = displayTextView.getText().toString();
             divide = true;
@@ -216,66 +224,68 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void add (View v) {
-        if (!divide && !multiply && !subtract && !displayTextView.getText().toString().equals("0")) {
+    public void add(View v) {
+        if (!divide && !multiply && !subtract) {
             previous = displayTextView.getText().toString();
             add = true;
             addTextView.setTextColor(Color.RED);
         }
     }
 
-    public void subtract (View v) {
-        if (!divide && !add && !multiply && !displayTextView.getText().toString().equals("0")) {
+    public void subtract(View v) {
+        if (!divide && !add && !multiply) {
             previous = displayTextView.getText().toString();
             subtract = true;
             subtractTextView.setTextColor(Color.RED);
         }
     }
 
-    public void equals (View v) {
-        if (!displayTextView.getText().toString().equals("0") && (multiply || divide || add || subtract)) {
+    public void equals(View v) {
+        if (multiply || divide || add || subtract) {
             BigDecimal result = new BigDecimal("0");
             if (previous.charAt(0) == '=') {
-                previous = previous.substring(1,previous.length());
+                previous = previous.substring(1, previous.length());
             }
             if (multiply) {
                 result = new BigDecimal(previous);
                 result = result.multiply(new BigDecimal(displayTextView.getText().toString()));
                 multiply = false;
                 multiplyTextView.setTextColor(Color.BLACK);
-            }
-            else if (divide) {
+            } else if (divide) {
+                if (displayTextView.getText().toString().equals(("0"))) {
+                    return;
+                }
                 result = new BigDecimal(previous);
                 result = result.divide(new BigDecimal(displayTextView.getText().toString()), 5, RoundingMode.HALF_UP);
                 divide = false;
                 String tooLong = result.toString();
-                while (tooLong.charAt(tooLong.length()-1) == '0' && tooLong.length() > 1) {
-                    tooLong = tooLong.substring(0, tooLong.length()-1);
-                    Log.v("DDDDDDDDDDDDD", tooLong);
+                while (tooLong.charAt(tooLong.length() - 1) == '0' && tooLong.length() > 1) {
+                    tooLong = tooLong.substring(0, tooLong.length() - 1);
                 }
                 result = new BigDecimal(tooLong);
                 divideTextView.setTextColor(Color.BLACK);
-            }
-            else if (add) {
+            } else if (add) {
                 result = new BigDecimal(previous);
                 result = result.add(new BigDecimal(displayTextView.getText().toString()));
                 add = false;
                 addTextView.setTextColor(Color.BLACK);
-            }
-            else if (subtract) {
+            } else if (subtract) {
                 result = new BigDecimal(previous);
                 result = result.subtract(new BigDecimal(displayTextView.getText().toString()));
                 subtract = false;
                 subtractTextView.setTextColor(Color.BLACK);
             }
-            displayTextView.setText("="+result);
-        }
-        showingAnswer = true;
-        alreadyClear = false;
+            displayTextView.setText("=" + result);
 
-        displayTextView.setTextColor(Color.YELLOW);
+            showingAnswer = true;
+            alreadyClear = false;
+
+            displayTextView.setTextColor(Color.YELLOW);
+        }
+
     }
-    public void squareRoot (View v) {
+
+    public void squareRoot(View v) {
 
     }
 }
