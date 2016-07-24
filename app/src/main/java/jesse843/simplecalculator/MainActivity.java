@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
             displayTextView.setText("=" + result);
 
             showingAnswer = true;
-            alreadyClear = false;
+            alreadyClear = true;
 
             displayTextView.setTextColor(Color.YELLOW);
             scrollview.post(new Runnable() {
