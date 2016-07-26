@@ -11,3 +11,6 @@ Ha ha, that's funny...
 * Android
 * Android Studio
 * Not coffee
+
+## Copyright
+Copyright 2016 Jesse DeJong
