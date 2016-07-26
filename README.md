@@ -9,8 +9,9 @@ I will gladly appreciate any contributions to this android app.
 To get quickly set up for contributing, follow these few steps:
 1. Download the Java JDK.
 2. Download the Android SDK and Android Studio.
-3. Fork or create a pull request of this repository, and open it up in Android Studio.
-4. 
+3. Create a brancof the repository, and upload it in Android Studio.
+4. When you are done making changes, open a pull request.
+5. Be recognized on this README!
 
 ## Release
 Ha ha, that's funny...
@@ -19,6 +20,9 @@ Ha ha, that's funny...
 * Android
 * Android Studio
 * Not coffee
+
+## Contributors
+* Jesse DeJong
 
 ## Copyright
 Copyright 2016 Jesse DeJong
