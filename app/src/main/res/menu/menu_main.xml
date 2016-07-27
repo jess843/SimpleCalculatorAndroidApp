@@ -2,16 +2,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="jesse843.simplecalculator.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="@string/action_settings"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/previous_calculations"
-        android:orderInCategory="200"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:title="Previous Calculations"
-        app:showAsAction="always"/>
 </menu>

@@ -64,15 +64,6 @@
                     android:text="C"
                     android:textSize="@dimen/button_text_size" />
 
-                <!--<Button
-                    android:id="@+id/square_root_button"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/button_height"
-                    android:layout_weight="1"
-                    android:text="√"
-                    android:textSize="@dimen/button_text_size"
-                    android:onClick="squareRoot" />-->
-
                 <Button
                     android:id="@+id/positive_negative_button"
                     android:layout_width="0dp"

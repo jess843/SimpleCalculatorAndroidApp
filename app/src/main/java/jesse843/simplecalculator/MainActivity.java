@@ -1,5 +1,6 @@
 package jesse843.simplecalculator;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+        //    return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -134,8 +136,10 @@ public class MainActivity extends AppCompatActivity {
     public void digitAdd(String digit) {
         if ((multiply || divide || add || subtract) && !alreadyClear) {
             displayTextView.setText("0");
-            alreadyClear = true;
         }
+
+        alreadyClear = true;
+
         if (showingAnswer) {
             displayTextView.setText("0");
         }
@@ -170,10 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
         showingAnswer = false;
         displayTextView.setTextColor(Color.WHITE);
-        if ((multiply || divide || add || subtract) && !alreadyClear) {
-            displayTextView.setText("0");
-            alreadyClear = true;
-        }
+
         if (!displayTextView.getText().toString().contains(".")) {
             displayTextView.setText(displayTextView.getText().toString() + ".");
         }
@@ -219,15 +220,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void negate(View v) {
-        if (!showingAnswer && alreadyClear) {
-            if (!displayTextView.getText().toString().contains(".")) {
-                BigInteger displayNum = new BigInteger(displayTextView.getText().toString());
-                displayNum = displayNum.negate();
-                displayTextView.setText("" + displayNum);
-            } else {
+        if (!showingAnswer) {
+            if (displayTextView.getText().toString().contains(".")) {
                 BigDecimal displayNum = new BigDecimal(displayTextView.getText().toString());
                 displayNum = displayNum.negate();
                 displayTextView.setText("" + displayNum);
+                Log.v("LALALALLALALALLALALAL", "BigDecimal");
+            } else {
+                BigInteger displayNum = new BigInteger(displayTextView.getText().toString());
+                displayNum = displayNum.negate();
+                displayTextView.setText("" + displayNum);
+                Log.v("LALALALLALALALLALALAL", "BigInteger");
             }
         }
         scrollview.post(new Runnable() {
