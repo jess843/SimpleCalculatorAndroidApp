@@ -31,4 +31,4 @@ Ha ha, that's funny...
 * Jesse DeJong
 
 ## Copyright
-Copyright 2016 Jesse DeJong
+© Copyright 2016 Jesse DeJong
