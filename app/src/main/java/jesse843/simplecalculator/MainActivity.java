@@ -24,7 +24,8 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity {
-    String previous;
+    public final static String EXTRA_MESSAGE = "jesse843.simplecalculator.MESSAGE";
+    private String previous;
     private TextView displayTextView;
     private boolean multiply;
     private boolean divide;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView addTextView;
     private TextView subtractTextView;
     private ScrollView scrollview;
-
+    private String history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         addTextView = (TextView) findViewById(R.id.add_button);
         subtractTextView = (TextView) findViewById(R.id.subtract_button);
         scrollview = ((ScrollView) findViewById(R.id.scrollView));
+        history = "";
 
         scrollview.post(new Runnable() {
 
@@ -86,9 +88,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_settings) {
-        //    return true;
-        //}
+        if (id == R.id.history_icon) {
+            Intent intent = new Intent(this, HistoryActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, history);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -317,6 +322,9 @@ public class MainActivity extends AppCompatActivity {
                 result = result.multiply(new BigDecimal(displayTextView.getText().toString()));
                 multiply = false;
                 multiplyTextView.setTextColor(Color.BLACK);
+                history += previous + " x " + displayTextView.getText().toString();
+                history += "\n";
+                history += "=" + result + "\n";
             } else if (divide) {
                 if (displayTextView.getText().toString().equals(("0"))) {
                     return;
@@ -330,16 +338,25 @@ public class MainActivity extends AppCompatActivity {
                 }
                 result = new BigDecimal(tooLong);
                 divideTextView.setTextColor(Color.BLACK);
+                history += previous + " ÷ " + displayTextView.getText().toString();
+                history += "\n";
+                history += "=" + result + "\n";
             } else if (add) {
                 result = new BigDecimal(previous);
                 result = result.add(new BigDecimal(displayTextView.getText().toString()));
                 add = false;
                 addTextView.setTextColor(Color.BLACK);
+                history += previous + " + " + displayTextView.getText().toString();
+                history += "\n";
+                history += "=" + result + "\n";
             } else if (subtract) {
                 result = new BigDecimal(previous);
                 result = result.subtract(new BigDecimal(displayTextView.getText().toString()));
                 subtract = false;
                 subtractTextView.setTextColor(Color.BLACK);
+                history += previous + " - " + displayTextView.getText().toString();
+                history += "\n";
+                history += "=" + result + "\n";
             }
             displayTextView.setText("=" + result);
 
