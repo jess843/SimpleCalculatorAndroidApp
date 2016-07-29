@@ -19,9 +19,6 @@ Get set up contributing by following these steps:
 
 5. Be recognized on this README!
 
-## Release
-Ha ha, that's funny...
-
 ## Built With
 * Android
 * Android Studio
@@ -31,4 +28,4 @@ Ha ha, that's funny...
 * Jesse DeJong
 
 ## Copyright
-Copyright 2016 Jesse DeJong
+© Copyright 2016 Jesse DeJong
